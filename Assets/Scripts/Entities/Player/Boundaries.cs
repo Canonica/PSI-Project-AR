@@ -2,18 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBoundaries : MonoBehaviour {
+public class Boundaries : MonoBehaviour {
 
+    public bool isOnBoundaries;
     private float minX;
     private float maxX;
     private float width;
     private Vector3 pos;
+
     void Start()
     {
         float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
         Vector2 bottomCorner = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, camDistance));
         Vector2 topCorner = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, camDistance));
-        width = GetComponent<Renderer>().bounds.size.x;
+        if (GetComponent<Renderer>())
+        {
+            width = GetComponent<Renderer>().bounds.extents.x;
+        }
+        else if (GetComponent<BoxCollider>())
+        {
+            width = GetComponent<BoxCollider>().size.x;
+        }
+        
         minX = bottomCorner.x + width;
         maxX = topCorner.x - width;
     }
@@ -24,11 +34,18 @@ public class PlayerBoundaries : MonoBehaviour {
         if (pos.x < minX)
         {
             pos.x = minX;
+            isOnBoundaries = true;
         }
-        if (pos.x > maxX)
+        else if (pos.x > maxX)
         {
             pos.x = maxX;
-        } 
+            isOnBoundaries = true;
+        }
+        else
+        {
+            isOnBoundaries = false;
+        }
         transform.position = pos;
     }
+
 }

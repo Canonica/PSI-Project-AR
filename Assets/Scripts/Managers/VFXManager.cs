@@ -10,7 +10,6 @@ public class VFXManager : MonoBehaviour {
     {
         if (instance == null)
         {
-            //DontDestroyOnLoad(this.gameObject);
             instance = this;
         }
         else if (instance != this)

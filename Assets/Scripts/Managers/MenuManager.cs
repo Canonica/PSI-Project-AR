@@ -12,7 +12,6 @@ public class MenuManager : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this);
         }
         else if (instance != this)
         {

@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public class AccelerometerInput : MonoBehaviour
 {
     private Gyroscope gyro;
-    Vector3 originalPos;
-    float distance;
+    public float divingSpeed;
+    public float ascentSpeed;
     void Start()
     { 
         if (SystemInfo.supportsGyroscope)
@@ -32,13 +32,12 @@ public class AccelerometerInput : MonoBehaviour
     {
         if(ContextManager.instance.CompareContext(ContextManager.GameContext.Diving))
         {
-            transform.Translate(new Vector3(Input.acceleration.x, -1, 0) * 10 * Time.fixedDeltaTime, Space.Self);
+            transform.Translate(new Vector3(Input.acceleration.x, divingSpeed, 0) * 10 * Time.fixedDeltaTime, Space.Self);
         }
         if (ContextManager.instance.CompareContext(ContextManager.GameContext.Ascent))
         {
-            transform.Translate(new Vector3(Input.acceleration.x, 1, 0) * 10 * Time.fixedDeltaTime, Space.Self);
+            transform.Translate(new Vector3(Input.acceleration.x, ascentSpeed, 0) * 10 * Time.fixedDeltaTime, Space.Self);
         }
-        Vector3 test = originalPos - transform.position;
-        distance = Vector3.Distance(originalPos, transform.position);
+        
     }
 }

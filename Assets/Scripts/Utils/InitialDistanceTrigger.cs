@@ -7,7 +7,7 @@ public class InitialDistanceTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == "Player" && ContextManager.instance.CompareContext(ContextManager.GameContext.Ascent))
         {
             ContextManager.instance.SwitchContext(ContextManager.GameContext.TransitionAtoS);
         }

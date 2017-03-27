@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 [RequireComponent(typeof(AccelerometerInput))]
 [RequireComponent(typeof(PlayerLife))]
@@ -15,6 +16,8 @@ public class PlayerHandler : MonoBehaviour {
     public PlayerMoney moneyScript;
     public PlayerDistance distanceScript;
 
+    public List<Fish> fishCaughtList = new List<Fish>();
+
     // Use this for initialization
     void Start ()
     {
@@ -23,8 +26,5 @@ public class PlayerHandler : MonoBehaviour {
         moneyScript = GetComponent<PlayerMoney>();
         distanceScript = GetComponent<PlayerDistance>();
     }
-
-
-
 
 }

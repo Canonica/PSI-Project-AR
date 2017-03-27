@@ -13,13 +13,14 @@ public class PlayerLife : MonoBehaviour {
         currentLife = maxLife;
 	}
 	
-    public void SubstractLife(int amount)
+    public void SubstractLife(Fish fish, int amount)
     {
         currentLife -= amount;
         currentLife = Mathf.Max(0, currentLife);
         if(currentLife <= 0)
         {
             ContextManager.instance.SwitchContext(ContextManager.GameContext.TransitionDToA);
+            fish.GetCaught(this.transform);
         }
     }
 

@@ -38,14 +38,6 @@ public class ContextManager : MonoBehaviour {
         cameraController = Camera.main.GetComponent<CameraController>();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            SwitchContext(GameContext.Diving);
-        }
-    }
-
     public void SwitchContext(GameContext contextWanted)
     {
         if(contextWanted == currentGameContext)

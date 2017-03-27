@@ -8,7 +8,7 @@ public class MaxDistanceTrigger : MonoBehaviour {
 	void Start ()
     {
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
-        transform.position = new Vector3(0, -playerHandler.distanceScript.maxDistance, 0);
+        transform.position = new Vector3(0, playerHandler.transform.position.y - playerHandler.distanceScript.maxDistance, 0);
 	}
 	
 	// Update is called once per frame

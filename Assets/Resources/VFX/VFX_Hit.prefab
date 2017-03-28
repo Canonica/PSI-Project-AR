@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 198235523594331022}
   - component: {fileID: 199387048079609022}
   m_Layer: 0
-  m_Name: VFX_Combat_EyeHit
+  m_Name: VFX_Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,7 +158,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1705121761
+  randomSeed: 440360306
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -2711,7 +2711,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -328920605
+  randomSeed: -191717758
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5276,7 +5276,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1094815802
+  randomSeed: 1078489354
   InitialModule:
     serializedVersion: 3
     enabled: 1

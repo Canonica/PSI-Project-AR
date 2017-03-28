@@ -2,6 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public class VFXNames
+{
+    public const string VFX_Combat_Evade = "Evade";
+    public const string VFX_Combat_Hit = "Hit";
+    public const string VFX_Explo = "Explo";
+}
+
 public class VFXManager : MonoBehaviour {
 
     public static VFXManager instance;
@@ -21,9 +28,6 @@ public class VFXManager : MonoBehaviour {
 
     public List<GameObject> listOfVFX;
     public List<string> listOfVFXNames;
-
-    public List<GameObject> listOfCurrentVFX;
-
 
     void FillList()
     {
@@ -61,8 +65,8 @@ public class VFXManager : MonoBehaviour {
         }
     }
 
-    public void PlayVFX(GameObject VFX, Transform parTransform)
+    public void PlayVFX(GameObject VFX, Vector3 parPosition)
     {
-        Instantiate(VFX, parTransform.position, Quaternion.identity);
+        Instantiate(VFX, parPosition, Quaternion.identity);
     }
 }

@@ -14,7 +14,8 @@ public class ContextManager : MonoBehaviour {
     }
 
     public static ContextManager instance;
-    public float transitionDuration;
+    public float transitionDurationDToA;
+    public float transitionDurationAToS;
     public GameContext currentGameContext;
     public GameContext previousGameContext;
 
@@ -69,14 +70,14 @@ public class ContextManager : MonoBehaviour {
 
     IEnumerator TransitionAToS()
     {
-        yield return new WaitForSeconds(transitionDuration);
+        yield return new WaitForSeconds(transitionDurationAToS);
         SwitchContext(GameContext.Shoot);
     }
 
     IEnumerator TransitionDToA()
     {
-        cameraController.TransitionDToA(transitionDuration);
-        yield return new WaitForSeconds(transitionDuration);
+        cameraController.TransitionDToA(transitionDurationDToA);
+        yield return new WaitForSeconds(transitionDurationDToA);
         SwitchContext(GameContext.Ascent);
     }
 }

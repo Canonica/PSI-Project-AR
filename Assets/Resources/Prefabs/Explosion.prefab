@@ -20,8 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4929697450595310}
   - component: {fileID: 33675786752858498}
-  - component: {fileID: 65731472524081968}
   - component: {fileID: 23385539847067150}
+  - component: {fileID: 135912023578473904}
+  - component: {fileID: 114709785558248628}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -41,7 +42,7 @@ GameObject:
   - component: {fileID: 199562192066400028}
   - component: {fileID: 114811521643909712}
   m_Layer: 0
-  m_Name: VFX_Explo_Jump
+  m_Name: VFX_Explo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,18 +113,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1039021707163684}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65731472524081968
-BoxCollider:
+--- !u!114 &114709785558248628
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1039021707163684}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8, z: 8}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0e1a774d2f9c9e4fb6492472df1f459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114811521643909712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -135,6 +135,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8d3cd6231d7a045a64fdc90456ae74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &135912023578473904
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1039021707163684}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198816943595890588
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -190,7 +202,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 887574285
+  randomSeed: -1454683352
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -2,21 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
+
 public class Fish : MonoBehaviour {
-    public int maxHealth;
+    [Header("Stats")]
+    public int maxLife;
+    private int currentLife;
     public int moneyToGive;
+    
+    public Rigidbody rb;
+
+
+    [Header("Movement")]
     public float minSpeed;
     public float maxSpeed;
-
-    private float speed;
-    private Rigidbody rb;
-
-
     public bool isRightDirection;
-    private bool beenCaught;
     public bool isChangingDirection;
+    public bool beenCaught;
+    private float speed;
     private Boundaries boundaries;
 
+    public GameObject moneyTextPrefab;
+
+    bool checkingMass;
     PlayerHandler playerHandler;
 	// Use this for initialization
 	void Start () {
@@ -28,7 +36,8 @@ public class Fish : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if (!beenCaught)
         {
             if (isRightDirection)
@@ -49,19 +58,10 @@ public class Fish : MonoBehaviour {
         if (ContextManager.instance.CompareContext(ContextManager.GameContext.Shoot))
         {
             transform.Rotate(Vector3.forward * Random.Range(100, 1000) *  Time.deltaTime);
-        }
-        
-    }
-
-    private void FixedUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            ContextManager.instance.SwitchContext(ContextManager.GameContext.Shoot);
-            beenCaught = true;
-            rb.isKinematic = false;
-            rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
-            rb.AddForce(Random.Range(-1.0f, 1.0f), 0.8f, 0, ForceMode.Impulse);
+            if (beenCaught && !checkingMass)
+            {
+                //StartCoroutine("EnableMass");
+            }
         }
     }
 
@@ -104,6 +104,47 @@ public class Fish : MonoBehaviour {
         }
         yield return new WaitForSeconds(0.5f);
         isChangingDirection = false;
+    }
+
+
+    #region Damage & Death
+    public void TakeDamage(int amount)
+    {
+        currentLife -= amount;
+        currentLife = Mathf.Max(0, currentLife);
+        if (currentLife <= 0)
+        {
+            Death();
+        }
+    }
+
+    void Death()
+    {
+        VFXManager.instance.PlayVFX(VFXManager.instance.GetVFX(VFXNames.VFX_Combat_Hit), transform.position);
+        SpawnTextPrefab();
+        playerHandler.fishCaughtList.Remove(this);
+        playerHandler.moneyScript.AddMoney(moneyToGive);
+        Destroy(gameObject);
+        
+    }
+
+    void SpawnTextPrefab()
+    {
+        GameObject tempMoneyText = Instantiate(moneyTextPrefab, new Vector3(transform.position.x, transform.position.y, -1), Quaternion.identity);
+        tempMoneyText.GetComponent<TextMeshPro>().text = "<color=#04B505FF>$</color>" + moneyToGive;
+        moneyTextPrefab.transform.DOMoveX(1f, 1f).OnComplete(() => Destroy(tempMoneyText));
+    }
+    #endregion
+
+    IEnumerator EnableMass()
+    {
+        checkingMass = true;
+        yield return new WaitForSeconds(0.2f);
+        while(rb.velocity.sqrMagnitude > 55)
+        {
+            rb.drag = 50;
+        }
+        checkingMass = false;
     }
 
 }

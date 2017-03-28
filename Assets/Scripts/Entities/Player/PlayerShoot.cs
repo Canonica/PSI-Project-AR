@@ -4,17 +4,35 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour {
     public GameObject prefabZone;
-	
-	// Update is called once per frame
-	void Update ()
+    public int damage;
+    public float radiusBullet;
+    public float fireRate;
+
+    bool canShoot;
+
+    private void Start()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && ContextManager.instance.CompareContext(ContextManager.GameContext.Shoot))
+        canShoot = true;
+    }
+    // Update is called once per frame
+    void Update ()
+    {
+        if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved) && ContextManager.instance.CompareContext(ContextManager.GameContext.Shoot) && canShoot)
         {
-            Vector3 fingerPos = Input.GetTouch(0).position;
-            fingerPos.z = 10;
-            Vector3 objPos = Camera.main.ScreenToWorldPoint(fingerPos);
-            Instantiate(prefabZone, objPos, Quaternion.identity);
+            StartCoroutine(Shoot());
         }
     }
 
+
+
+    IEnumerator Shoot()
+    {
+        canShoot = false;
+        Vector3 fingerPos = Input.GetTouch(0).position;
+        Vector3 objPos = Camera.main.ScreenToWorldPoint(fingerPos);
+        GameObject zone = Instantiate(prefabZone, new Vector3(objPos.x, objPos.y, 0), Quaternion.identity) as GameObject;
+        zone.GetComponent<ExplosionObject>().Init(damage, radiusBullet);
+        yield return new WaitForSeconds(fireRate);
+        canShoot = true;
+    }
 }

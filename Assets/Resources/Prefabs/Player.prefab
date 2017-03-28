@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 114374455300134036}
   - component: {fileID: 114232779434024380}
   - component: {fileID: 54652433593851952}
+  - component: {fileID: 114747937471839050}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -290,7 +291,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.5, y: 0.5, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114160383278110846
 MonoBehaviour:
@@ -303,6 +304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a069d7a520eea64c94fe885ad22cb62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  divingSpeed: -0.8
+  ascentSpeed: 0.8
 --- !u!114 &114232779434024380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -327,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab2caf338c8ed44fbc7ff7aa39c94f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 0
+  maxLife: 1
 --- !u!114 &114374455300134036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -343,6 +346,7 @@ MonoBehaviour:
   lifeScript: {fileID: 0}
   moneyScript: {fileID: 0}
   distanceScript: {fileID: 0}
+  fishCaughtList: []
 --- !u!114 &114507234254443088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -355,6 +359,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOnBoundaries: 0
+--- !u!114 &114747937471839050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1694438171027662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af5c0c4be2b534498ff4e2268aad7ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabZone: {fileID: 1039021707163684, guid: 2a8a61c51ba223f4cb873aa949dbaaba, type: 2}
+  damage: 1
+  radiusBullet: 0.5
+  fireRate: 0.5
 --- !u!114 &114847620487190196
 MonoBehaviour:
   m_ObjectHideFlags: 1

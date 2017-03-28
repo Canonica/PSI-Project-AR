@@ -52,8 +52,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1151167672370310}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.62, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.53, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4518501950554682}
@@ -123,12 +123,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d7e62ba2455f045825a85b242658d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxLife: 0
   moneyToGive: 3
+  rb: {fileID: 0}
   minSpeed: 0.7
   maxSpeed: 1
   isRightDirection: 0
   isChangingDirection: 0
+  beenCaught: 0
+  moneyTextPrefab: {fileID: 1398945337596896, guid: fd527948f6ecc58459b5156df4a86b3a,
+    type: 2}
 --- !u!212 &212617847342852234
 SpriteRenderer:
   m_ObjectHideFlags: 1

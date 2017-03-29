@@ -30,7 +30,7 @@ public class LaunchFish : MonoBehaviour {
                 fish.beenCaught = true;
                 fish.rb.isKinematic = false;
                 fish.rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
-                fish.rb.AddForce(Random.Range(-1.0f, 1.0f), 1f, 0, ForceMode.Impulse);
+                fish.rb.AddForce(Random.Range(-0.7f, 0.7f), Random.Range(1, 1.2f), 0, ForceMode.Impulse);
             }
         }
         else

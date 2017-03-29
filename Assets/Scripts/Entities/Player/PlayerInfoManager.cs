@@ -10,6 +10,9 @@ public class PlayerInfoManager : MonoBehaviour {
     public int currentMoney;
     public int maxLife;
     public int maxDistance;
+    public int moneyBonus;
+    public float fireRate;
+    public int weaponDamage;
 
     void Awake()
     {
@@ -23,6 +26,12 @@ public class PlayerInfoManager : MonoBehaviour {
             Destroy(this.gameObject);
         }
         
+    }
+
+
+    void Start()
+    {
+        LoadPlayerInfo();
     }
 
     void OnApplicationQuit()
@@ -43,10 +52,13 @@ public class PlayerInfoManager : MonoBehaviour {
 
         if (PlayerPrefs.HasKey("maxLife"))
         {
+
             maxLife = PlayerPrefs.GetInt("maxLife");
         }
         else
         {
+           
+
             maxLife = 1;
         }
 
@@ -58,13 +70,56 @@ public class PlayerInfoManager : MonoBehaviour {
         {
             maxDistance = 50;
         }
+
+        if (PlayerPrefs.HasKey("moneyBonus"))
+        {
+            moneyBonus = PlayerPrefs.GetInt("moneyBonus");
+        }
+        else
+        {
+            moneyBonus = 0;
+        }
+
+        if (PlayerPrefs.HasKey("fireRate"))
+        {
+            fireRate = PlayerPrefs.GetFloat("fireRate");
+        }
+        else
+        {
+            fireRate = 0.5f;
+        }
+
+        if (PlayerPrefs.HasKey("weaponDamage"))
+        {
+            weaponDamage = PlayerPrefs.GetInt("weaponDamage");
+        }
+        else
+        {
+            weaponDamage = 1;
+        }
     }
 
     void SavePlayerInfo()
     {
-        PlayerPrefs.SetInt("currentMoney", playerHandler.moneyScript.currentMoney);
-        PlayerPrefs.SetInt("maxLife", playerHandler.lifeScript.maxLife);
-        PlayerPrefs.SetInt("maxDistance", playerHandler.distanceScript.maxDistance);
+        if(playerHandler != null)
+        {
+            PlayerPrefs.SetInt("currentMoney", playerHandler.moneyScript.currentMoney);
+            PlayerPrefs.SetInt("maxLife", playerHandler.lifeScript.maxLife);
+            PlayerPrefs.SetInt("maxDistance", playerHandler.distanceScript.maxDistance);
+            PlayerPrefs.SetInt("moneyBonus", playerHandler.moneyScript.bonusMoney);
+            PlayerPrefs.SetFloat("fireRate", playerHandler.playerShoot.fireRate);
+            PlayerPrefs.SetInt("weaponDamage", playerHandler.playerShoot.damage);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("currentMoney", currentMoney);
+            PlayerPrefs.SetInt("maxLife", maxLife);
+            PlayerPrefs.SetInt("maxDistance", maxDistance);
+            PlayerPrefs.SetInt("moneyBonus", moneyBonus);
+            PlayerPrefs.SetFloat("fireRate", fireRate);
+            PlayerPrefs.SetInt("weaponDamage", weaponDamage);
+        }
+        
         PlayerPrefs.Save();
     }
 
@@ -90,20 +145,39 @@ public class PlayerInfoManager : MonoBehaviour {
 
     void UpdatePlayerInfo()
     {
-        if (!playerHandler)
-        {
-            playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
-        }
+        playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
 
-        if(playerHandler.lifeScript.maxLife != maxLife)
+        if(playerHandler != null)
         {
-            playerHandler.lifeScript.maxLife = maxLife;
-        }
+            if (playerHandler.lifeScript.maxLife != maxLife)
+            {
+                playerHandler.lifeScript.maxLife = maxLife;
+            }
 
-        if (playerHandler.moneyScript.currentMoney != currentMoney)
-        {
-            playerHandler.moneyScript.currentMoney = currentMoney;
-        }
+            if (playerHandler.moneyScript.currentMoney != currentMoney)
+            {
+                playerHandler.moneyScript.currentMoney = currentMoney;
+            }
 
+            if (playerHandler.moneyScript.bonusMoney != moneyBonus)
+            {
+                playerHandler.moneyScript.bonusMoney = moneyBonus;
+            }
+
+            if (playerHandler.playerShoot.fireRate != fireRate)
+            {
+                playerHandler.playerShoot.fireRate = fireRate;
+            }
+
+            if (playerHandler.playerShoot.damage != weaponDamage)
+            {
+                playerHandler.playerShoot.damage = weaponDamage;
+            }
+        }
+    }
+
+    public void EndGameInfo()
+    {
+        currentMoney = playerHandler.moneyScript.currentMoney;
     }
 }

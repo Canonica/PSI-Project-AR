@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -15,16 +14,18 @@ public class PlayerHandler : MonoBehaviour {
     public PlayerLife lifeScript;
     public PlayerMoney moneyScript;
     public PlayerDistance distanceScript;
+    public PlayerShoot playerShoot;
 
     public List<Fish> fishCaughtList = new List<Fish>();
 
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
         accelerometerInput = GetComponent<AccelerometerInput>();
         lifeScript = GetComponent<PlayerLife>();
         moneyScript = GetComponent<PlayerMoney>();
         distanceScript = GetComponent<PlayerDistance>();
+        playerShoot = GetComponent<PlayerShoot>();
     }
 
 }

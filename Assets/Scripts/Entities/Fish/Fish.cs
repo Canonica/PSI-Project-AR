@@ -131,7 +131,7 @@ public class Fish : MonoBehaviour {
     void SpawnTextPrefab()
     {
         GameObject tempMoneyText = Instantiate(moneyTextPrefab, new Vector3(transform.position.x, transform.position.y, -1), Quaternion.identity);
-        tempMoneyText.GetComponent<TextMeshPro>().text = "<color=#04B505FF>$</color>" + moneyToGive;
+        tempMoneyText.GetComponent<TextMeshPro>().text = "<color=#04B505FF>$</color>" + (moneyToGive + playerHandler.moneyScript.bonusMoney);
         moneyTextPrefab.transform.DOMoveX(1f, 1f).OnComplete(() => Destroy(tempMoneyText));
     }
     #endregion

@@ -5,12 +5,12 @@ using UnityEngine;
 public class Boundaries : MonoBehaviour {
 
     public bool isOnBoundaries;
-    private float minX;
-    private float maxX;
+    public float minX;
+    public float maxX;
     private float width;
     private Vector3 pos;
 
-    void Start()
+    void Awake()
     {
         float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
         Vector2 bottomCorner = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, camDistance));

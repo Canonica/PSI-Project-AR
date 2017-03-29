@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class ContextManager : MonoBehaviour {
     public enum GameContext
     {
@@ -79,5 +79,11 @@ public class ContextManager : MonoBehaviour {
         cameraController.TransitionDToA(transitionDurationDToA);
         yield return new WaitForSeconds(transitionDurationDToA);
         SwitchContext(GameContext.Ascent);
+    }
+
+    public IEnumerator EndGame()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(0);
     }
 }

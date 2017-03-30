@@ -14,7 +14,7 @@ public class PlayerHandler : MonoBehaviour {
     public PlayerLife lifeScript;
     public PlayerMoney moneyScript;
     public PlayerDistance distanceScript;
-    public PlayerShoot playerShoot;
+    public PlayerShootAR playerShoot;
 
     public List<Fish> fishCaughtList = new List<Fish>();
 
@@ -25,7 +25,7 @@ public class PlayerHandler : MonoBehaviour {
         lifeScript = GetComponent<PlayerLife>();
         moneyScript = GetComponent<PlayerMoney>();
         distanceScript = GetComponent<PlayerDistance>();
-        playerShoot = GetComponent<PlayerShoot>();
+        playerShoot = GetComponent<PlayerShootAR>();
     }
 
 }

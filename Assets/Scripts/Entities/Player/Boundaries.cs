@@ -13,8 +13,8 @@ public class Boundaries : MonoBehaviour {
     void Awake()
     {
         float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
-        Vector2 bottomCorner = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, camDistance));
-        Vector2 topCorner = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, camDistance));
+        Vector2 bottomCorner = ContextManager.instance.cameraController.GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0, 0, camDistance));
+        Vector2 topCorner = ContextManager.instance.cameraController.GetComponent<Camera>().ViewportToWorldPoint(new Vector3(1, 1, camDistance));
         if (GetComponent<Renderer>())
         {
             width = GetComponent<Renderer>().bounds.extents.x;

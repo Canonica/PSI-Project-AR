@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+using UnityEngine.UI;
 public class ContextManager : MonoBehaviour {
     public enum GameContext
     {
@@ -19,7 +21,12 @@ public class ContextManager : MonoBehaviour {
     public GameContext currentGameContext;
     public GameContext previousGameContext;
 
-    private CameraController cameraController;
+    public CameraController cameraController;
+
+
+    public GameObject ARCamera;
+    public GameObject camera2D;
+    public Image image;
 
     void Awake()
     {
@@ -31,12 +38,13 @@ public class ContextManager : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+        cameraController = camera2D.GetComponent<CameraController>();
     }
 
     void Start()
     {
         InitGame();
-        cameraController = Camera.main.GetComponent<CameraController>();
+        camera2D.SetActive(false);
     }
 
     public void SwitchContext(GameContext contextWanted)
@@ -68,6 +76,12 @@ public class ContextManager : MonoBehaviour {
         return contextToCompare == currentGameContext;
     }
 
+    public void TransitionWToD(Vector3 targetPos)
+    {
+        ARCamera.GetComponentInChildren<GyroHandler>().enabled = false;
+        ARCamera.transform.DOMove(targetPos, 1f).OnComplete(() => WaitingToDescent());
+    }
+
     IEnumerator TransitionAToS()
     {
         yield return new WaitForSeconds(transitionDurationAToS);
@@ -85,5 +99,12 @@ public class ContextManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(0);
+    }
+
+    void WaitingToDescent()
+    {
+        image.DOFade(1, 0.5f).OnComplete(()=> ARCamera.gameObject.SetActive(false));
+        image.DOFade(0, 0.5f).SetDelay(1).OnPlay(()=> camera2D.SetActive(true));
+        image.DOFade(0, 1).SetDelay(1.5f).OnComplete(()=> SwitchContext(GameContext.Diving));
     }
 }

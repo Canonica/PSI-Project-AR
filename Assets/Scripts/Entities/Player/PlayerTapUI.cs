@@ -11,27 +11,11 @@ public class PlayerTapUI : MonoBehaviour {
 	void Start ()
     {
         text = GetComponent<TextMeshProUGUI>();
-    }
-
-    void Update()
-    {
-        if (ContextManager.instance.CompareContext(ContextManager.GameContext.Waiting) && ContextManager.instance.previousGameContext == ContextManager.GameContext.Waiting && !isShowing)
-        {
-            ShowText("Tap to start fishing !");
-        }
-
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetKeyDown(KeyCode.A) && isShowing)
-        {
-            if (ContextManager.instance.CompareContext(ContextManager.GameContext.Waiting) && ContextManager.instance.previousGameContext == ContextManager.GameContext.Waiting)
-            {
-                ContextManager.instance.SwitchContext(ContextManager.GameContext.Diving);
-                MaskText();
-            }
-        }
+        ShowText("Swipe up to launch the hook !");
     }
 
 
-    void ShowText(string parText)
+    public void ShowText(string parText)
     {
         isShowing = true;
         text.text = parText;
@@ -39,7 +23,7 @@ public class PlayerTapUI : MonoBehaviour {
         textTween = text.transform.DOScale(1.2f, 0.3f).SetLoops(-1, LoopType.Yoyo);
     }
 
-    void MaskText()
+    public void MaskText()
     {
         isShowing = false;
         text.DOFade(0, 0.2f);

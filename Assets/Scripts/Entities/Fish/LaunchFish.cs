@@ -18,6 +18,7 @@ public class LaunchFish : MonoBehaviour {
         {
             LaunchFishRb();
         }
+
 	}
 
     void LaunchFishRb()

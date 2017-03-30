@@ -17,6 +17,7 @@ public class PlayerShoot : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        
         if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved) && ContextManager.instance.CompareContext(ContextManager.GameContext.Shoot) && canShoot)
         {
             StartCoroutine(Shoot());

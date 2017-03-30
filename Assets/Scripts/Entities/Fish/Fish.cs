@@ -24,8 +24,8 @@ public class Fish : MonoBehaviour {
 
     public GameObject moneyTextPrefab;
 
-    bool checkingMass;
     PlayerHandler playerHandler;
+
 	// Use this for initialization
 	void Start () {
         speed = Random.Range(minSpeed, maxSpeed);
@@ -33,6 +33,7 @@ public class Fish : MonoBehaviour {
         isRightDirection = true;
         boundaries = GetComponent<Boundaries>();
         playerHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
+        currentLife = maxLife;
     }
 	
 	// Update is called once per frame
@@ -58,10 +59,7 @@ public class Fish : MonoBehaviour {
         if (ContextManager.instance.CompareContext(ContextManager.GameContext.Shoot))
         {
             transform.Rotate(Vector3.forward * Random.Range(100, 1000) *  Time.deltaTime);
-            if (beenCaught && !checkingMass)
-            {
-                //StartCoroutine("EnableMass");
-            }
+            transform.LookAt(Camera.main.transform.position);
         }
     }
 
@@ -111,6 +109,7 @@ public class Fish : MonoBehaviour {
     public void TakeDamage(int amount)
     {
         currentLife -= amount;
+        transform.DOShakeScale(0.3f, 1, 10, 90).OnComplete(()=> transform.DOScale(1, 0));
         currentLife = Mathf.Max(0, currentLife);
         if (currentLife <= 0)
         {
@@ -136,15 +135,6 @@ public class Fish : MonoBehaviour {
     }
     #endregion
 
-    IEnumerator EnableMass()
-    {
-        checkingMass = true;
-        yield return new WaitForSeconds(0.2f);
-        while(rb.velocity.sqrMagnitude > 55)
-        {
-            rb.drag = 50;
-        }
-        checkingMass = false;
-    }
+
 
 }
